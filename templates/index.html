@@ -13,14 +13,17 @@
   <body>
     <form action="/" method="POST">
       <div class="mb-3">
-        <label for="title" class="form-label">Todo Title</label>
-        <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp"> 
+        <label for="title" class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name"  aria-describedby="emailHelp"> 
       </div>
       <div class="mb-3">
-        <label for="desc" class="form-label">Todo Description</label>
-        <input type="text" class="form-control" name="desc" id="desc">
+        <label for="desc" class="form-label">Age</label>
+        <input type="text" class="form-control" name="Age">
       </div>
-      
+      <div class="mb-3">
+        <label for="desc" class="form-label">Mobile</label>
+        <input type="text" class="form-control" name="Mobile" >
+      </div>
       <button type="submit" class="btn btn-dark">Submit</button>
     </form>
    
@@ -34,9 +37,9 @@
             <thead>
               <tr>
                 <th scope="col">SNo</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Time</th>
+                <th scope="col">Name</th>
+                <th scope="col">AGE</th>
+                <th scope="col">Mobile</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -45,10 +48,9 @@
   {% for todo in allTodo %}
   <tr>
     <th scope="row">{{loop.index}}</th>
-    <td>{{todo.title}}</td>
-    <td>{{todo.desc}}</td>
-    <td>{{todo.date_created}}</td>
-    <td>
+    <td>{{todo.Name}}</td>
+    <td>{{todo.Age}}</td>
+    <td>{{todo.Mobile}}</td>
           <td><a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-warning btn-sm mx-1">update</a><a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-danger btn-sm mx-1">Delete</a></td>
         </tr>
         {% endfor %}
