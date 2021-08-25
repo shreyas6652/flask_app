@@ -14,9 +14,6 @@ class Todo(db.Model):
     Age = db.Column(db.String(500), nullable=True)
     Mobile = db.Column(db.String(500), nullable=True)
 
-    def __ref__(self):
-        return f"Todo(Name= {Name} ,Age= {Age} ,Mobile= {Mobile})"
-
 resource_fields={
     'sno':fields.Integer,
     'Name':fields.String,
