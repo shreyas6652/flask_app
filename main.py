@@ -5,28 +5,28 @@ from flask_cors import CORS, cross_origin
 app=Flask(__name__)
 api=Api(app)
 CORS(app,resources=r'/api/*')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(200), nullable=True)
-    Age = db.Column(db.String(500), nullable=True)
-    Mobile = db.Column(db.String(500), nullable=True)
+    Description = db.Column(db.String(200), nullable=True)
+    Time = db.Column(db.String(500), nullable=True)
+    Status = db.Column(db.String(500), nullable=True)
 
 resource_fields={
     'sno':fields.Integer,
-    'Name':fields.String,
-    'Age':fields.Integer,
-    'Mobile':fields.String
+    'Description':fields.String,
+    'Time':fields.String,
+    'Status':fields.String
 }
 
 info_put_args = reqparse.RequestParser()
-info_put_args.add_argument("Name", type=str, required=True)
-info_put_args.add_argument("Age", type=str, required=True)
-info_put_args.add_argument("Mobile", type=str,  required=True)
+info_put_args.add_argument("Description", type=str, required=True)
+info_put_args.add_argument("Time", type=str, required=True)
+info_put_args.add_argument("Status", type=str,  required=True)
 
 class GetTable(Resource):
     @marshal_with(resource_fields)
@@ -36,39 +36,39 @@ class GetTable(Resource):
         for itr in result:
             jsonitr={
                 "sno":itr.sno,
-                "Name":itr.Name,
-                "Age":itr.Age,
-                "Mobile":itr.Mobile
+                "Description":itr.Description,
+                "Time":itr.Time,
+                "Status":itr.Status
             }
             jsonobj.append(jsonitr)
         return(jsonobj)
     def post(self):
         args = info_put_args.parse_args()
-        Name=args["Name"]
-        Age=args["Age"]
-        Mobile=args["Mobile"]
-        todo=Todo(Name=Name,Age=Age,Mobile=Mobile)
+        Description=args["Description"]
+        Time=args["Time"]
+        Status=args["Status"]
+        todo=Todo(Description=Description,Time=Time,Status=Status)
         db.session.add(todo)
         db.session.commit()
-        return {"Name" :Name,"Age":Age,"Mobile":Mobile}
+        return {"Description" :Description,"Time":Time,"Status":Status}
 
 class EditTable(Resource):
     def get(self,sno):
         todo = Todo.query.filter_by(sno=sno).first()
         
-        return {"Name":todo.Name,"Age":todo.Age,"Mobile":todo.Mobile}
+        return {"Description":todo.Description,"Time":todo.Time,"Status":todo.Status}
     def put(self,sno):
         todo = Todo.query.filter_by(sno=sno).first()
         if not todo:
-            return{"Message":"Data Doesnt exist"}
+            return{"MessTime":"Data Doesnt exist"}
         args = info_put_args.parse_args()
-        Name=args['Name']
-        Age=args['Age']
-        Mobile=args['Mobile']
+        Description=args['Description']
+        Time=args['Time']
+        Status=args['Status']
        
-        todo.Name=Name
-        todo.Age=Age
-        todo.Mobile=Mobile
+        todo.Description=Description
+        todo.Time=Time
+        todo.Status=Status
         db.session.commit()
         return{"Message":"Updated Successfully"}
 
