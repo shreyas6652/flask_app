@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 app=Flask(__name__)
 api=Api(app)
 CORS(app,resources=r'/api/*')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://oybhjbtqxbafeb:894370f0813a1364977887d31398575bb239aaebc0ec7681b5ff429438e9e4e8@ec2-35-153-91-18.compute-1.amazonaws.com:5432/d4eue66bg0g34t'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 db = SQLAlchemy(app)
@@ -15,7 +15,7 @@ class Todo(db.Model):
     Name = db.Column(db.String(200), nullable=True)
     Age = db.Column(db.String(500), nullable=True)
     Mobile = db.Column(db.String(500), nullable=True)
-
+#classModel->serial->View(Crud)
 resource_fields={
     'sno':fields.Integer,
     'Name':fields.String,
@@ -32,6 +32,7 @@ class GetTable(Resource):
     @marshal_with(resource_fields)
     def get(self):
         result=Todo.query.all()
+        print(type(result))
         jsonobj=[]
         for itr in result:
             jsonitr={

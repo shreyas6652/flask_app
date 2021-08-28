@@ -15,7 +15,7 @@ class Todo(db.Model):
     Description = db.Column(db.String(200), nullable=True)
     Time = db.Column(db.String(500), nullable=True)
     Status = db.Column(db.String(500), nullable=True)
-
+#Model->Serialization->View Call
 resource_fields={
     'sno':fields.Integer,
     'Description':fields.String,
