@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 app=Flask(__name__)
 api=Api(app)
 CORS(app,resources=r'/api/*')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'https://murmuring-coast-63289.herokuapp.com/postgres://yrptuivhfcysqz:1835b36ef415f55e524653e03430d729090b4fb9a83e6e968532f1dcd496d6f4@ec2-52-203-74-38.compute-1.amazonaws.com:5432/d73a2mgafbngcf'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 db = SQLAlchemy(app)
